@@ -1,0 +1,13 @@
+{
+    "employee1": [
+        {
+            "timestamp": "20250420_201237",
+            "results": "disgust"
+        }
+    ,
+        {
+            "timestamp": "20250421_201237",
+            "results": "disgust"
+        }
+    ]
+}
