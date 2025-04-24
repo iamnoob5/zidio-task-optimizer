@@ -1,1 +1,12 @@
-[{"name": "task2", "complexity": 3.0, "employee_number": "employee1"}, {"name": "task 1", "complexity": "6.5", "employee_number": "employee1"}]
+[
+    {
+        "name": "task2",
+        "complexity": 3.0,
+        "employee_number": "employee1"
+    },
+    {
+        "name": "task 1",
+        "complexity": "6.5",
+        "employee_number": "employee1"
+    }
+]

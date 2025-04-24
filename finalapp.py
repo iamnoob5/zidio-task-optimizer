@@ -410,57 +410,63 @@ def analytics():
            day1_data = grouped.get_group(day1)
            day2_data = grouped.get_group(day2)
         
-      
+           # Check for high individual emotions
+           for employee in day1_data['employee'].unique():
+               emp_data = day1_data[day1_data['employee'] == employee]
+               if emp_data['angry'].max() >= threshold:
+                   alerts.append(f"Alert: {employee} shows high anger levels ({emp_data['angry'].max():.1f}%) on {day1}.")
+               if emp_data['sad'].max() >= threshold:
+                   alerts.append(f"Alert: {employee} shows high sadness levels ({emp_data['sad'].max():.1f}%) on {day1}.")
+               if emp_data['fear'].max() >= threshold:
+                   alerts.append(f"Alert: {employee} shows high fear levels ({emp_data['fear'].max():.1f}%) on {day1}.")
+               if emp_data['disgust'].max() >= threshold:
+                   alerts.append(f"Alert: {employee} shows high disgust levels ({emp_data['disgust'].max():.1f}%) on {day1}.")
+        
+           # Check for multiple negative emotions
            negative_emotions = ['angry', 'disgust', 'fear', 'sad']
-        
-        
            day1_above_threshold = all(day1_data[emotion].max() >= threshold for emotion in negative_emotions)
            day2_above_threshold = all(day2_data[emotion].max() >= threshold for emotion in negative_emotions)
         
-           
            if day1_above_threshold and day2_above_threshold:
-               alerts.append(f"Alert: Negative emotions detected above threshold ({threshold}) on {day1} and {day2}.")
-    
+               alerts.append(f"Alert: Multiple negative emotions detected above threshold ({threshold}) on {day1} and {day2}.")
     
        if alerts:
            st.header("Alerts")
            for alert in alerts:
                st.warning(alert)
         
-           message = {
-                "message": "Our system detected that you are in emotional distress. Tasks have been reorganised for your comfort. If needed contact management for further support,couselling or stress management programs.", 
-                "timestamp": str(pd.Timestamp.now())
-            }
-           message_file_path = "automated_message.json"  
-           with open(message_file_path, "w") as f:
-                json.dump(message, f, indent=4)
-           st.success(f"Message saved to {message_file_path}.")
-           try:
-               with open("tasks.json", "r") as f:
-                   tasks = json.load(f)
-               tasks = sorted(tasks, key=lambda x: float(x['complexity']))
-               with open("tasks.json", "w") as f:
-                   json.dump(tasks, f, indent=4)
-            
-            
-               st.success("Tasks have been successfully reorganized based on complexity rating.")
-               st.experimental_rerun() 
-           except ValueError:
-               st.error("Complexity ratings must be numeric to sort tasks.")
-           except FileNotFoundError:
-               st.error("tasks.json file not found. Ensure the file exists.")
-           except Exception as e:
-               st.error(f"An unexpected error occurred: {str(e)}")
+           # Check if we've already shown these alerts
+           if 'alerts_shown' not in st.session_state:
+               st.session_state.alerts_shown = True
+               message = {
+                    "message": "Our system detected that you are in emotional distress. Tasks have been reorganised for your comfort. If needed contact management for further support,couselling or stress management programs.", 
+                    "timestamp": str(pd.Timestamp.now())
+                }
+               message_file_path = "automated_message.json"  
+               with open(message_file_path, "w") as f:
+                    json.dump(message, f, indent=4)
+               st.success(f"Message saved to {message_file_path}.")
+               try:
+                   with open("tasks.json", "r") as f:
+                       tasks = json.load(f)
+                   tasks = sorted(tasks, key=lambda x: float(x['complexity']))
+                   with open("tasks.json", "w") as f:
+                       json.dump(tasks, f, indent=4)
+                
+                   st.success("Tasks have been successfully reorganized based on complexity rating.")
+                   st.rerun() 
+               except ValueError:
+                   st.error("Complexity ratings must be numeric to sort tasks.")
+               except FileNotFoundError:
+                   st.error("tasks.json file not found. Ensure the file exists.")
+               except Exception as e:
+                   st.error(f"An unexpected error occurred: {str(e)}")
        else:
-           st.write("No alerts to display.")  
-            
-           
-            
-       
-    
-    
-    
-    
+           st.write("No alerts to display.")
+           # Reset the alerts_shown flag when there are no alerts
+           if 'alerts_shown' in st.session_state:
+               del st.session_state.alerts_shown
+        
     st.header("Employee's Emotion Over Days")
     employee_names = df['employee'].unique()
     selected_employee = st.selectbox("Select Employee", employee_names)
@@ -473,8 +479,15 @@ def analytics():
     plt.title(f"Emotions Over Days for {selected_employee}")
     plt.ylabel("Emotion Scores")
     plt.xlabel("Date")
-    ax.xaxis.set_major_formatter(plt.matplotlib.dates.DateFormatter('%d-%b'))  
-    fig.autofmt_xdate()  
+    
+    # Get unique dates and format them
+    unique_dates = employee_data.index.unique()
+    date_labels = [date.strftime('%d-%b') for date in unique_dates]
+    
+    # Set x-axis ticks and labels
+    ax.set_xticks(unique_dates)
+    ax.set_xticklabels(date_labels, rotation=45)
+    
     plt.legend()
     st.pyplot(fig)   
     generate_threshold_alerts(df)    
@@ -528,7 +541,8 @@ def analytics():
              st.warning(f"No data available for {team_name}. Skipping this team.")
              continue  
     
-        team_df = preprocess_data(team_df)
+        # Reset index to get timestamp back as a column
+        team_df = team_df.reset_index()
         team_df = team_df.select_dtypes(include=['float', 'int']) 
         team_moods[team_name] = team_df.mean()
 

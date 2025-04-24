@@ -1,13 +1,170 @@
 {
     "employee1": [
         {
-            "timestamp": "20250420_201237",
+            "timestamp": "20250420_200217",
             "results": "disgust"
-        }
-    ,
+        },
         {
-            "timestamp": "20250421_201237",
+            "timestamp": "20250421_201232",
+            "results": "disgust"
+        },
+        {
+            "timestamp": "20250422_202345",
+            "results": "disgust"
+        },
+        {
+            "timestamp": "20250423_203512",
+            "results": "disgust"
+        },
+        {
+            "timestamp": "20250424_204726",
             "results": "disgust"
         }
-    ]
+    ],
+    "employee2": [
+  { "timestamp": "20250420_200217", "results": "neutral" },
+  { "timestamp": "20250421_201232", "results": "neutral" },
+  { "timestamp": "20250422_202345", "results": "neutral" },
+  { "timestamp": "20250423_203512", "results": "neutral" },
+  { "timestamp": "20250424_204726", "results": "neutral" }
+],
+"employee3": [
+  { "timestamp": "20250420_200217", "results": "neutral" },
+  { "timestamp": "20250421_201232", "results": "neutral" },
+  { "timestamp": "20250422_202345", "results": "neutral" },
+  { "timestamp": "20250423_203512", "results": "neutral" },
+  { "timestamp": "20250424_204726", "results": "neutral" }
+],
+"employee4": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "happy"
+  }
+],
+"employee5": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "neutral"
+  }
+],
+"employee6": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "angry"
+  }
+],
+"employee7": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "angry"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "angry"
+  }
+],
+"employee8": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "neutral"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "neutral"
+  }
+],
+"employee9": [
+  { 
+    "timestamp": "20250420_200217", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250421_201232", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250422_202345", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250423_203512", 
+    "results": "happy"
+  },
+  { 
+    "timestamp": "20250424_204726", 
+    "results": "happy"
+  }
+]
 }
