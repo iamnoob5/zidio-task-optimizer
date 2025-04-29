@@ -16,8 +16,6 @@ employee_numbers = employee_credentials.keys()
 TASKS_FILE = "tasks.json"
 
 
-
-
 def load_tasks():
     try:
         with open("tasks.json", "r") as file:
@@ -36,12 +34,9 @@ def delete_task(tasks, index):
 def save_tasks_emp(tasks):
     with open("tasks.json", "w") as file:
         json.dump(tasks, file, indent=4)
+
+
         
-
-
-
-
-
 def display_tasks():
     st.title("Task Viewer")
     tasks = load_tasks()
@@ -59,14 +54,6 @@ def display_tasks():
                     st.rerun()
     else:
         st.write("No tasks available.")    
-
-
-
-
-
-
-
-
 
 
 
@@ -110,16 +97,6 @@ def task_organizer():
     else:
         st.write("No tasks available. Please add a task.")
 
-         
-         
-
-            
-
-
-
-
-
-
 
 
 
@@ -143,8 +120,6 @@ def employee_page():
 
 
 
-
-
 def manage_automated_message():
     message_file_path = "automated_message.json"  
     try:
@@ -162,18 +137,6 @@ def manage_automated_message():
                 st.error(f"An error occurred while deleting the message: {str(e)}")
     except FileNotFoundError:
         st.write("No message found.")    
-                
-    
-       
-
-       
-
-      
-
-    
-
-       
-
 
 
 
@@ -201,17 +164,9 @@ def record_with_webcam(output_path):
     cv2.destroyAllWindows()
     st.success("Recording complete!")
     return True
-           
-            
 
-
-    
-
-
-    
-
-
-   
+         
+         
 
 def well_being_evaluation():
     if "username" not in st.session_state:
@@ -251,20 +206,11 @@ def well_being_evaluation():
         os.remove(video_path) 
     else:
         st.warning("Please upload a video to proceed.")
-        
-       
-    
-  
-        
-       
-         
-        
-
-        
             
 
-           
-            
+
+
+
 
 def login(credentials):
     username = st.text_input("Username")
@@ -281,15 +227,10 @@ def login(credentials):
 
 
 
-
-
-
 def logout():
     if st.button("Logout"):
         st.session_state.pop("username", None)  
         st.success("You have been logged out.")
-
-
 
 
 
@@ -300,14 +241,6 @@ def send_message(employee_number, message):
     if employee_number not in st.session_state["messages"]:
         st.session_state["messages"][employee_number] = []
     st.session_state["messages"][employee_number].append(message) 
-    
-
-
-
-        
-
-
-
 
 
 
@@ -326,12 +259,12 @@ def analytics():
     speech_res = "C:\\Users\\sarth\\OneDrive\\Documents\\python code\\zidio_project_1\\all_emotion_results(speech).json"
     text_res = "C:\\Users\\sarth\\OneDrive\\Documents\\python code\\zidio_project_1\\all_emotion_results(text).json"
 
-    # Load JSON data
+  
     data1 = load_json_file(face_res)
     data2 = load_json_file(speech_res)
     data3 = load_json_file(text_res)
 
-    # Convert JSON data into DataFrames
+    
     df1 = pd.DataFrame(data1)
     df2 = pd.DataFrame(data2)
     df3 = pd.DataFrame(data3)
@@ -364,8 +297,6 @@ def analytics():
       return pd.DataFrame(records)
 
 
-
-
     df1 = process_data(data1)
     df2 = process_data(data2)
     df3 = process_data(data3)
@@ -383,17 +314,8 @@ def analytics():
         df = ensure_numeric(df)  
         return df
     
-    
-    
-    
     df = preprocess_data(df)
 
-    
-    
-    
-    
-   
-    
 
     def generate_threshold_alerts(df, threshold=25):
        if not isinstance(df.index, pd.DatetimeIndex):
@@ -410,7 +332,7 @@ def analytics():
            day1_data = grouped.get_group(day1)
            day2_data = grouped.get_group(day2)
         
-           # Check for high individual emotions
+          
            for employee in day1_data['employee'].unique():
                emp_data = day1_data[day1_data['employee'] == employee]
                if emp_data['angry'].max() >= threshold:
@@ -422,7 +344,7 @@ def analytics():
                if emp_data['disgust'].max() >= threshold:
                    alerts.append(f"Alert: {employee} shows high disgust levels ({emp_data['disgust'].max():.1f}%) on {day1}.")
         
-           # Check for multiple negative emotions
+           
            negative_emotions = ['angry', 'disgust', 'fear', 'sad']
            day1_above_threshold = all(day1_data[emotion].max() >= threshold for emotion in negative_emotions)
            day2_above_threshold = all(day2_data[emotion].max() >= threshold for emotion in negative_emotions)
@@ -435,7 +357,7 @@ def analytics():
            for alert in alerts:
                st.warning(alert)
         
-           # Check if we've already shown these alerts
+          
            if 'alerts_shown' not in st.session_state:
                st.session_state.alerts_shown = True
                message = {
@@ -463,7 +385,7 @@ def analytics():
                    st.error(f"An unexpected error occurred: {str(e)}")
        else:
            st.write("No alerts to display.")
-           # Reset the alerts_shown flag when there are no alerts
+           
            if 'alerts_shown' in st.session_state:
                del st.session_state.alerts_shown
         
@@ -480,11 +402,11 @@ def analytics():
     plt.ylabel("Emotion Scores")
     plt.xlabel("Date")
     
-    # Get unique dates and format them
+   
     unique_dates = employee_data.index.unique()
     date_labels = [date.strftime('%d-%b') for date in unique_dates]
     
-    # Set x-axis ticks and labels
+  
     ax.set_xticks(unique_dates)
     ax.set_xticklabels(date_labels, rotation=45)
     
@@ -541,7 +463,7 @@ def analytics():
              st.warning(f"No data available for {team_name}. Skipping this team.")
              continue  
     
-        # Reset index to get timestamp back as a column
+        
         team_df = team_df.reset_index()
         team_df = team_df.select_dtypes(include=['float', 'int']) 
         team_moods[team_name] = team_df.mean()
@@ -565,12 +487,6 @@ def analytics():
 
     
   
-
-    
-
-
-    
-
 def management_page():
     st.title("Management Section")
     st.write("Welcome to the management section. Content coming soon!")
@@ -584,12 +500,6 @@ def management_page():
         analytics()    
     
 
-
-
-
-
-
-    
 
 st.title("Zidio AI-Powered Task Optimizer")
 st.write("Please select a section to proceed:")
@@ -615,6 +525,96 @@ elif section == "Management":
             management_page()
 else:
     st.write("Please make a selection from the dropdown above.")
+
+
+
+
+
+
+
+
+
+
+                
+    
+       
+
+       
+
+      
+
+    
+
+       
+
+
+
+
+
+           
+            
+
+
+    
+
+
+    
+
+
+   
+
+        
+       
+    
+  
+        
+       
+         
+        
+
+        
+            
+
+           
+            
+
+    
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+
+    
+    
+    
+    
+   
+    
+
+    
+
+
+    
+
+
+
+
+
+    
+
    
 
 
