@@ -255,9 +255,9 @@ def analytics():
             return json.load(f)
     
     
-    face_res = "C:\\Users\\sarth\\OneDrive\\Documents\\python code\\zidio_project_1\\all_emotion_results(face).json"
-    speech_res = "C:\\Users\\sarth\\OneDrive\\Documents\\python code\\zidio_project_1\\all_emotion_results(speech).json"
-    text_res = "C:\\Users\\sarth\\OneDrive\\Documents\\python code\\zidio_project_1\\all_emotion_results(text).json"
+    face_res = "D:\\real documents\\python code\\zidio_project_1\\all_emotion_results(face).json"
+    speech_res = "D:\\real documents\\python code\zidio_project_1\\all_emotion_results(speech).json"
+    text_res = "D:\\real documents\\python code\\zidio_project_1\\all_emotion_results(text).json"
 
   
     data1 = load_json_file(face_res)
